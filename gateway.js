@@ -93,7 +93,7 @@ const stratGateway = async () => {
     const connectToPrintServer = () => {
         const client = new net.Socket()
         client.connect(PRINT_SERVER_PORT, PRINT_SERVER_HOST, async() => {
-            console.log('Connected to print sever')
+            console.log('Connected to print server')
             await insertPrintStatusLog('Connected')
             eventPublish.emit('print-status', 'connected')
             setInterval(async () => {
