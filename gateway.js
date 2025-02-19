@@ -114,16 +114,16 @@ const stratGateway = async () => {
         
         client.on("close", async () => {
             console.log('TCP client reconnecting....')
-            eventPublish.emit('print-status', 'reconnecting')
             await insertPrintStatusLog('Reconnecting')
+            eventPublish.emit('print-status', 'reconnecting')
             if(printInterval) clearInterval(printInterval)
             setTimeout(connectToPrintServer, 5000)
         })
     
         client.on('error', async (err) => {
             console.log('TCP client error: ' +err)
-            eventPublish.emit('print-status', 'disconnected')
             await insertPrintStatusLog('Disconnected')
+            eventPublish.emit('print-status', 'disconnected')
             if(printInterval) clearInterval(printInterval)
             client.destroy()
         })
