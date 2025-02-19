@@ -5,7 +5,7 @@ const { getLastPlcDataLog, getLastPrintDataLog, insertPlcDataLog, insertPrintDat
 
 const PLC = new Controller()
 
-const PRINT_SERVER_HOST = '10.203.179.132'
+const PRINT_SERVER_HOST = '10.203.179.133'
 const PRINT_SERVER_PORT = '2345'
 const PLC_IP = '10.203.179.200'
 const POLLING_INTERVAL = 1000
