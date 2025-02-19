@@ -75,7 +75,7 @@ const stratGateway = async () => {
         }
     }
     
-    dataToPrint = 'coba;dulu;ini;sca;satu;dak'
+    dataToPrint = ''
     const pollAllStrings = async () => {
         while(true) {
             const data = await readStringTags()
@@ -94,8 +94,8 @@ const stratGateway = async () => {
         const client = new net.Socket()
         client.connect(PRINT_SERVER_PORT, PRINT_SERVER_HOST, async() => {
             console.log('Connected to print sever')
-            eventPublish.emit('print-status', 'connected')
             await insertPrintStatusLog('Connected')
+            eventPublish.emit('print-status', 'connected')
             setInterval(async () => {
                 if(dataToPrint) {
                     client.write(dataToPrint)
