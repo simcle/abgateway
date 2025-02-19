@@ -101,7 +101,7 @@ exports.getLastPrintDataLog = async () => {
     try {
         const query = 'SELECT * FROM print_data_logs ORDER BY created_at DESC LIMIT 1'
         const row = await db.get(query)
-        return row.data
+        return row?.data
     } catch (error) {
         console.log(error)   
     } finally {
