@@ -90,13 +90,15 @@ const stratGateway = async () => {
         }
     }
     
+    let printInterval = null
     const connectToPrintServer = () => {
         const client = new net.Socket()
         client.connect(PRINT_SERVER_PORT, PRINT_SERVER_HOST, async() => {
             console.log('Connected to print server')
             await insertPrintStatusLog('Connected')
             eventPublish.emit('print-status', 'connected')
-            setInterval(async () => {
+            if(printInterval) clearInterval(printInterval)
+            printInterval = setInterval(async () => {
                 if(dataToPrint) {
                     client.write(dataToPrint)
                     eventPublish.emit('print-counter', 'send')
@@ -114,6 +116,7 @@ const stratGateway = async () => {
             console.log('TCP client reconnecting....')
             eventPublish.emit('print-status', 'reconnecting')
             await insertPrintStatusLog('Reconnecting')
+            if(printInterval) clearInterval(printInterval)
             setTimeout(connectToPrintServer, 5000)
         })
     
@@ -121,6 +124,7 @@ const stratGateway = async () => {
             console.log('TCP client error: ' +err)
             eventPublish.emit('print-status', 'disconnected')
             await insertPrintStatusLog('Disconnected')
+            if(printInterval) clearInterval(printInterval)
             client.destroy()
         })
     }

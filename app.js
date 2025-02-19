@@ -39,7 +39,6 @@ io.on('connection', async (socket) => {
     }
     const onPrintCounter = (msg) => {
         socket.emit('print-counter', msg)
-        
     }
     const onPrintChange = () => {
         socket.emit('print-change')
